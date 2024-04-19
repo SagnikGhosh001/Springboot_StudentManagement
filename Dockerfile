@@ -5,4 +5,4 @@ RUN mvn clean package -DskipTests
 FROM openjdk:21-slim
 COPY --from=build /target/SPRINGREST-0.0.1-SNAPSHOT.jar SPRINGREST.jar
 EXPOSE 9090
-ENTRYPOINT [ "java","-jar","/SPRINGREST.jar" ]
+ENTRYPOINT [ "java","-jar","SPRINGREST.jar" ]
