@@ -2,6 +2,7 @@ package com.springrest.springrest.controller;
 
 import java.util.Date;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,7 @@ public class UserController {
 	@Autowired
 	UserService userservice;
 	@PostMapping("/login")
-	public String validate(@RequestBody User user) throws ServletException{
+	public AuthResponse validate(@RequestBody User user) throws ServletException{
 		String jwtToken="";
 		if(user.getUserName()==null || user.getPassword()==null || user.getRole()==null)
 		{
@@ -30,11 +31,41 @@ public class UserController {
 		}
 		String userName=user.getUserName();
 		String password=user.getPassword();
-		user=userservice.login(userName, password);
+		String role=user.getRole();
+		user=userservice.login(userName, password,role);
 		if(user==null)
 			throw new ServletException("User Not found");
 		
-		jwtToken=Jwts.builder().setSubject(userName).claim("roles", user.getRole()).setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact();
-		return jwtToken;
+		jwtToken=Jwts.builder()
+				.setSubject(userName)
+				.claim("roles", user.getRole())
+				.setIssuedAt(new Date())
+				.signWith(SignatureAlgorithm.HS256, "secretkey")
+				.compact();
+		AuthResponse response = new AuthResponse();
+        response.setToken(jwtToken);
+        response.setUser(user);
+        return response;
 	}
+	public static class AuthResponse {
+        private String token;
+        private User user;
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+    }
 }
+

@@ -11,8 +11,8 @@ public class UserServiceimpl implements UserService {
 	Userdao userdao;
 	
 	@Override
-	public User login(String userName, String password) {
-		User user=userdao.findByUserNameAndPassword(userName, password);
+	public User login(String userName, String password,String role) {
+		User user=userdao.findByUserNameAndPasswordAndRole(userName, password,role);
 		return user;
 	}
 
