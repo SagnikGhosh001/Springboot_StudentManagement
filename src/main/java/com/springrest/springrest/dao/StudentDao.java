@@ -11,19 +11,19 @@ import com.springrest.springrest.entity.Student;
 public interface StudentDao extends JpaRepository<Student, Integer> {
 	@Query("select s from Student s where s.id=?1")
 	List<Student> getById(int id);
-	@Query("select s from Student s where s.studentEmail=?1")
+	@Query("select s from Student s where s.email=?1")
 	List<Student> getByStudentEmail(String studentEmail);
-	@Query("select s from Student s where s.studentPhoneNo=?1")
+	@Query("select s from Student s where s.phoneNo=?1")
 	List<Student> getByStudentPhoneNo(String studentPhoneNo);
 	@Query("select s from Student s where s.userName=?1")
 	List<Student> getByUserName(String userName);
-	Student getReferenceByStudentEmail(String studentEmail);
-	Student getReferenceByStudentPhoneNo(String studentPhoneNo);
+	Student getReferenceByEmail(String studentEmail);
+	Student getReferenceByPhoneNo(String studentPhoneNo);
 	Student getReferenceByUserName(String userName);
-	Student deleteByStudentEmail(String studentEmail);
-	Student deleteByStudentPhoneNo(String studentPhoneNo);
+	Student deleteByEmail(String studentEmail);
+	Student deleteByPhoneNo(String studentPhoneNo);
 	Student deleteByUserName(String userName);
-	Optional<Student> findByStudentEmail(String studentEmail);
-	Optional<Student> findByStudentPhoneNo(String studentPhoneNo);
+	Optional<Student> findByEmail(String studentEmail);
+	Optional<Student> findByPhoneNo(String studentPhoneNo);
 	Optional<Student> findByUserName(String userName);
 }

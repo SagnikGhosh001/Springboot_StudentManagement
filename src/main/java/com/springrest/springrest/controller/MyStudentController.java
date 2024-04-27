@@ -41,20 +41,29 @@ public class MyStudentController {
 		
 	}
 	
-	@PutMapping("/UpdateStudents/{id}/{role}")
-	public String updateStudent(@PathVariable("role") String role,@PathVariable("id") int id,@RequestBody Student student){
-		if(role.equals("admin")) {
+	@PutMapping("/UpdateStudents/{id}")
+	public String updateStudent(@PathVariable("id") int id,@RequestBody Student student){
 			return this.obj_studentService.updateStudent(id,student);
-		}
-		else {
-			return "you are not admin";
-		}
 	}
 	
 	@PutMapping("/ForgetPassword/{email}")
 	public ResponseEntity<?> forgetPassword(@PathVariable("email") String email,@RequestBody Student password){
 		
 			this.obj_studentService.forgetPassword(email,password);
+			return new ResponseEntity<>(HttpStatus.OK);
+		
+	}
+	@PutMapping("/ChangePassword/{id}")
+	public ResponseEntity<?> changePassword(@PathVariable("id") int id,@RequestBody Student password){
+		
+			this.obj_studentService.changePassword(id,password);
+			return new ResponseEntity<>(HttpStatus.OK);
+		
+	}
+	@PutMapping("/ChangeUsername/{id}")
+	public ResponseEntity<?> changeUsername(@PathVariable("id") int id,@RequestBody Student username){
+		
+			this.obj_studentService.changeUsername(id,username);
 			return new ResponseEntity<>(HttpStatus.OK);
 		
 	}

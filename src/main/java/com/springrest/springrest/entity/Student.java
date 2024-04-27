@@ -1,5 +1,7 @@
 package com.springrest.springrest.entity;
 
+import javax.validation.constraints.NotNull;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -12,18 +14,50 @@ import jakarta.persistence.UniqueConstraint;
 @Entity
 @Table(name = "register_Student")
 public class Student extends User {
-	@Column(name = "name")
+	@Column(name = "name",nullable = false)
 	@javax.validation.constraints.NotNull
-	private String studentName;
-	@Column(name = "phoneNo",unique = true)
+	private String name;
+	@Column(name = "phoneNo",unique = true,nullable = false)
 	@javax.validation.constraints.NotNull
-	private String studentPhoneNo;
-	@Column(name = "email",unique = true)
+	private String phoneNo;
+	@Column(name = "email",unique = true,nullable = false)
 	@javax.validation.constraints.NotNull
-	private String studentEmail;
-	@Column(name = "gender")
+	private String email;
+	@Column(name = "gender",nullable = false)
 	@javax.validation.constraints.NotNull
 	private String gender;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public Student(int id, String userName, String password, String role, @NotNull String name, @NotNull String phoneNo,
+			@NotNull String email, @NotNull String gender) {
+		super(id, userName, password, role);
+		this.name = name;
+		this.phoneNo = phoneNo;
+		this.email = email;
+		this.gender = gender;
+	}
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -32,42 +66,9 @@ public class Student extends User {
 		super(id, userName, password, role);
 		// TODO Auto-generated constructor stub
 	}
-	public Student(int id, String userName, String password, String role, @javax.validation.constraints.NotNull String studentName,
-			@javax.validation.constraints.NotNull String studentPhoneNo, @javax.validation.constraints.NotNull String studentEmail, @javax.validation.constraints.NotNull String gender) {
-		super(id, userName, password, role);
-		this.studentName = studentName;
-		this.studentPhoneNo = studentPhoneNo;
-		this.studentEmail = studentEmail;
-		this.gender = gender;
-	}
-	public String getStudentName() {
-		return studentName;
-	}
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
-	}
-	public String getStudentPhoneNo() {
-		return studentPhoneNo;
-	}
-	public void setStudentPhoneNo(String studentPhoneNo) {
-		this.studentPhoneNo = studentPhoneNo;
-	}
-	public String getStudentEmail() {
-		return studentEmail;
-	}
-	public void setStudentEmail(String studentEmail) {
-		this.studentEmail = studentEmail;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
 	@Override
 	public String toString() {
-		return "Student [studentName=" + studentName + ", studentPhoneNo=" + studentPhoneNo + ", studentEmail="
-				+ studentEmail + ", gender=" + gender + "]";
+		return "Student [name=" + name + ", phoneNo=" + phoneNo + ", email=" + email + ", gender=" + gender + "]";
 	}
 	
 		
@@ -76,9 +77,9 @@ public class Student extends User {
 	 * @param userName
 	 * @param password
 	 * @param role
-	 * @param studentName
-	 * @param studentPhoneNo
-	 * @param studentEmail
+	 * @param name
+	 * @param shoneNo
+	 * @param email
 	 */
 
 	

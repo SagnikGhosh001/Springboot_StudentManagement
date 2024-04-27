@@ -24,17 +24,17 @@ public class User {
 	private int id;
 	
 	
-	@Column(name = "userName",length = 50,unique = true)
+	@Column(name = "userName",length = 50,unique = true,nullable = false)
 	@javax.validation.constraints.NotNull
 	private String userName;
 	
 	
-	@Column(length = 50,name = "password")
+	@Column(length = 50,name = "password",nullable = false)
 	@javax.validation.constraints.NotNull
 	private String password;
 	
 
-	@Column(name = "roles",length = 50)
+	@Column(name = "roles",length = 50,nullable = false)
 	@javax.validation.constraints.NotNull
 	private String role;
 	

@@ -38,9 +38,9 @@ public class AdminServiceimpl implements AdminService {
 	public void updateAdmin(int id,Admin admin) {
 		Admin existadmin=adminDao.findById(id).orElseThrow(()->
 		new ResourceNotFoundException("Admin", "id", id));
-		existadmin.setAdminEmail(admin.getAdminEmail());
-		existadmin.setAdminName(admin.getAdminName());
-		existadmin.setAdminPhoneNo(admin.getAdminPhoneNo());
+		existadmin.setEmail(admin.getEmail());
+		existadmin.setName(admin.getName());
+		existadmin.setPhoneNo(admin.getPhoneNo());
 		existadmin.setPassword(admin.getPassword());
 		existadmin.setRole(admin.getRole());
 		existadmin.setUserName(admin.getUserName());
@@ -66,14 +66,14 @@ public class AdminServiceimpl implements AdminService {
 
 	@Override
 	public List<Admin> getAdminByEmail(String adminEmail) {
-		adminDao.findByAdminEmail(adminEmail).orElseThrow(()->
+		adminDao.findByEmail(adminEmail).orElseThrow(()->
 		new ResourceNotFoundException("Admin", "adminEmail", adminEmail));
 		return adminDao.getByAdminEmail(adminEmail);
 	}
 
 	@Override
 	public List<Admin> getAdminByadminPhoneNo(String adminPhoneNo) {
-		adminDao.findByAdminPhoneNo(adminPhoneNo).orElseThrow(()->
+		adminDao.findByPhoneNo(adminPhoneNo).orElseThrow(()->
 		new ResourceNotFoundException("Admin", "PhoneNo", adminPhoneNo));
 		return adminDao.getByAdminPhoneNo(adminPhoneNo);
 	}

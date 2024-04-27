@@ -14,4 +14,6 @@ public interface StudentService {
 	public List<Student> getStudentBystudentPhoneNo(String studentPhoneNo);
 	public List<Student> getStudentBystudentUserName(String userName);
 	public void forgetPassword(String email,Student passoword);
+	public void changePassword(int id,Student password);
+	public void changeUsername(int id,Student username);
 }

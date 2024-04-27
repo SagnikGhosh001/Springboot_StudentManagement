@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.springrest.springrest.exceptions.ResourceNotFoundException;
@@ -15,6 +16,7 @@ public class StudentImpl implements StudentService {
 	
 	@Autowired
 	private StudentDao studentDao;
+
 	@Override
 	public List<Student> getStudents() {
 		return studentDao.findAll();
@@ -33,12 +35,7 @@ public class StudentImpl implements StudentService {
 		String msg=null;
 		Student existStudent=studentDao.findById(id).orElseThrow(()->
 		new ResourceNotFoundException("Student", "id", id));
-		existStudent.setUserName(student.getUserName());
-		existStudent.setPassword(student.getPassword());
-		existStudent.setRole(student.getRole());
-		existStudent.setStudentEmail(student.getStudentEmail());
-		existStudent.setStudentName(student.getStudentName());
-		existStudent.setStudentPhoneNo(student.getStudentPhoneNo());
+		existStudent.setName(student.getName());
 		existStudent.setGender(student.getGender());
 		studentDao.save(existStudent);
 		msg="updated";
@@ -48,6 +45,7 @@ public class StudentImpl implements StudentService {
 
 	@Override
 	public void addStudent(Student student) {
+		
 		studentDao.save(student);
 		
 	}
@@ -68,14 +66,14 @@ public class StudentImpl implements StudentService {
 
 	@Override
 	public List<Student> getStudentBystudentEmail(String studentEmail) {
-		studentDao.findByStudentEmail(studentEmail).orElseThrow(()->
+		studentDao.findByEmail(studentEmail).orElseThrow(()->
 		new ResourceNotFoundException("Student", "email", studentEmail));
 		return studentDao.getByStudentEmail(studentEmail);
 	}
 
 	@Override
 	public List<Student> getStudentBystudentPhoneNo(String studentPhoneNo) {
-		studentDao.findByStudentPhoneNo(studentPhoneNo).orElseThrow(()->
+		studentDao.findByPhoneNo(studentPhoneNo).orElseThrow(()->
 		new ResourceNotFoundException("Student", "phoneNo", studentPhoneNo));
 		return studentDao.getByStudentPhoneNo(studentPhoneNo);
 	}
@@ -89,10 +87,28 @@ public class StudentImpl implements StudentService {
 
 	@Override
 	public void forgetPassword(String email, Student passoword) {
-		Student existstudent=studentDao.findByStudentEmail(email).orElseThrow(()->
+		Student existstudent=studentDao.findByEmail(email).orElseThrow(()->
 				new ResourceNotFoundException("Student", "email", email));
 		existstudent.setPassword(passoword.getPassword());
 		studentDao.save(existstudent);
+	}
+
+	@Override
+	public void changePassword(int id, Student password) {
+		Student existstudent=studentDao.findById(id).orElseThrow(()->
+		new ResourceNotFoundException("Student", "id", id));
+existstudent.setPassword(password.getPassword());
+studentDao.save(existstudent);
+		
+	}
+
+	@Override
+	public void changeUsername(int id, Student username) {
+		Student existstudent=studentDao.findById(id).orElseThrow(()->
+		new ResourceNotFoundException("Student", "id", id));
+existstudent.setUserName(username.getUserName());
+studentDao.save(existstudent);
+		
 	}
 
 	
