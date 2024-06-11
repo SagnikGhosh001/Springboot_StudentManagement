@@ -1,5 +1,6 @@
 package com.springrest.springrest.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,15 @@ public class MyStudentController {
 	@Autowired
 	StudentService obj_studentService;
 	
-	@GetMapping("/AllStudents")
-	public List<Student> getStudents(){
+	@GetMapping("/AllStudents/{role}")
+	public List<Student> getStudents(@PathVariable("role") String role){
+		if(role.equals("admin")) {
+			
 		return obj_studentService.getStudents();
+		}
+	else {
+		return new ArrayList<>();
+	}
 	}
 	@GetMapping("/StudentbyId/{id}")
 	public List<Student> getStudent(@PathVariable String id){
